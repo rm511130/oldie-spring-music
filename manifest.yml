@@ -3,7 +3,6 @@ applications:
 - name: spring-music
   memory: 3G
   instances: 1
-  host: ch-spring-music
   random: true`
   path: build/libs/spring-music.war
 
