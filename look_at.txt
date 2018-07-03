@@ -1,0 +1,3 @@
+cd /work/spring-music/src/main/java/org/cloudfoundry/samples/music/config
+ls SpringApplicationContextInitializer.java
+cat SpringApplicationContextInitializer.java
