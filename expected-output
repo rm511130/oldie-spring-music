@@ -1,0 +1,305 @@
+======================== The cf api & cf login commands ====================
+
+$ cf api api.system.pcf4u.com --skip-ssl-validation
+
+Setting api endpoint to api.system.pcf4u.com...
+OK
+
+api endpoint:   https://api.system.pcf4u.com
+api version:    2.98.0
+
+$ cf login
+API endpoint: https://api.system.pcf4u.com
+
+Email> rmeira@pivotal.io
+Password> 
+Authenticating...
+OK
+
+Targeted org demo
+Targeted space demo
+                
+API endpoint:   https://api.system.pcf4u.com (API version: 2.98.0)
+User:           rmeira@pivotal.io
+Org:            demo
+Space:          demo
+
+======================== Clone the Repository ==============================
+
+$ cd /work
+
+$ git clone https://github.com/rm511130/spring-music
+Cloning into 'spring-music'...
+remote: Counting objects: 153, done.
+remote: Compressing objects: 100% (107/107), done.
+remote: Total 153 (delta 25), reused 146 (delta 21), pack-reused 0
+Receiving objects: 100% (153/153), 24.60 MiB | 4.97 MiB/s, done.
+Resolving deltas: 100% (25/25), done.
+Checking connectivity... done.
+
+$ cd spring-music
+
+======================== The cf push =======================================
+
+$ cf push
+
+Pushing from manifest to org demo / space demo as rmeira@pivotal.io...
+Using manifest file /work/spring-music/manifest.yml
+Getting app info...
+Updating app with these attributes...
+  name:                spring-music
+  path:                /Users/rmeira/work/src/github.com/user/spring-music/build/libs/spring-music.war
+  buildpack:           client-certificate-mapper=1.6.0_RELEASE container-security-provider=1.13.0_RELEASE java-buildpack=v4.12-offline-https://github.com/cloudfoundry/java-buildpack.git#5dca820 java-opts java-security jvmkill-agent=1.12.0_RELEASE open-jdk-like-jre=1...
+  command:             JAVA_OPTS="-agentpath:$PWD/.java-buildpack/open_jdk_jre/bin/jvmkill-1.12.0_RELEASE=printHeapHistogram=1 -Djava.io.tmpdir=$TMPDIR -Djava.ext.dirs=$PWD/.java-buildpack/container_security_provider:$PWD/.java-buildpack/open_jdk_jre/lib/ext -Djava.security.properties=$PWD/.java-buildpack/java_security/java.security $JAVA_OPTS -Daccess.logging.enabled=false -Dhttp.port=$PORT" && CALCULATED_MEMORY=$($PWD/.java-buildpack/open_jdk_jre/bin/java-buildpack-memory-calculator-3.13.0_RELEASE -totMemory=$MEMORY_LIMIT -loadedClasses=17453 -poolType=metaspace -stackThreads=250 -vmOptions="$JAVA_OPTS") && echo JVM Memory Configuration: $CALCULATED_MEMORY && JAVA_OPTS="$JAVA_OPTS $CALCULATED_MEMORY" && MALLOC_ARENA_MAX=2 JAVA_OPTS=$JAVA_OPTS JAVA_HOME=$PWD/.java-buildpack/open_jdk_jre exec $PWD/.java-buildpack/tomcat/bin/catalina.sh run
+  disk quota:          1G
+  health check type:   port
+  instances:           1
+  memory:              3G
+  stack:               cflinuxfs2
+  routes:
+    ch-spring-music.apps.pcf4u.com
+
+Updating app spring-music...
+Mapping routes...
+Comparing local files to remote cache...
+Packaging files to upload...
+Uploading files...
+ 345.92 KiB / 345.92 KiB [=========================================================================================================================================] 100.00% 1s
+
+Waiting for API to complete processing files...
+
+Stopping app...
+
+Staging app and tracing logs...
+   Downloading binary_buildpack...
+   Downloading nodejs_buildpack...
+   Downloading staticfile_buildpack...
+   Downloading java_buildpack_offline...
+   Downloading ruby_buildpack...
+   Downloaded ruby_buildpack
+   Downloading python_buildpack...
+   Downloaded staticfile_buildpack
+   Downloading go_buildpack...
+   Downloaded python_buildpack
+   Downloading php_buildpack...
+   Downloaded java_buildpack_offline
+   Downloading dotnet_core_buildpack...
+   Downloaded nodejs_buildpack
+   Downloaded binary_buildpack
+   Downloaded go_buildpack
+   Downloaded php_buildpack
+   Downloaded dotnet_core_buildpack
+   Cell 2ecdc72b-e2b5-4ac0-b21e-85fea6f01343 creating container for instance 7d223db1-c4d8-43c7-8d4c-32132c44fc14
+   Cell 2ecdc72b-e2b5-4ac0-b21e-85fea6f01343 successfully created container for instance 7d223db1-c4d8-43c7-8d4c-32132c44fc14
+   Downloading build artifacts cache...
+   Downloading app package...
+   Downloaded build artifacts cache (129B)
+   Downloaded app package (24.5M)
+   -----> Java Buildpack v4.12 (offline) | https://github.com/cloudfoundry/java-buildpack.git#5dca820
+   -----> Downloading Jvmkill Agent 1.12.0_RELEASE from https://java-buildpack.cloudfoundry.org/jvmkill/trusty/x86_64/jvmkill-1.12.0_RELEASE.so (found in cache)
+   -----> Downloading Open Jdk JRE 1.8.0_172 from https://java-buildpack.cloudfoundry.org/openjdk/trusty/x86_64/openjdk-1.8.0_172.tar.gz (found in cache)
+          Expanding Open Jdk JRE to .java-buildpack/open_jdk_jre (1.8s)
+          JVM DNS caching disabled in lieu of BOSH DNS caching
+   -----> Downloading Open JDK Like Memory Calculator 3.13.0_RELEASE from https://java-buildpack.cloudfoundry.org/memory-calculator/trusty/x86_64/memory-calculator-3.13.0_RELEASE.tar.gz (found in cache)
+          Loaded Classes: 15591, Threads: 250
+   -----> Downloading Client Certificate Mapper 1.6.0_RELEASE from https://java-buildpack.cloudfoundry.org/client-certificate-mapper/client-certificate-mapper-1.6.0_RELEASE.jar (found in cache)
+   -----> Downloading Container Security Provider 1.13.0_RELEASE from https://java-buildpack.cloudfoundry.org/container-security-provider/container-security-provider-1.13.0_RELEASE.jar (found in cache)
+   -----> Downloading Spring Auto Reconfiguration 2.4.0_RELEASE from https://java-buildpack.cloudfoundry.org/auto-reconfiguration/auto-reconfiguration-2.4.0_RELEASE.jar (found in cache)
+   -----> Downloading Tomcat Instance 8.5.31 from https://java-buildpack.cloudfoundry.org/tomcat/tomcat-8.5.31.tar.gz (found in cache)
+          Expanding Tomcat Instance to .java-buildpack/tomcat (0.2s)
+   -----> Downloading Tomcat Access Logging Support 3.2.0_RELEASE from https://java-buildpack.cloudfoundry.org/tomcat-access-logging-support/tomcat-access-logging-support-3.2.0_RELEASE.jar (found in cache)
+   -----> Downloading Tomcat Lifecycle Support 3.2.0_RELEASE from https://java-buildpack.cloudfoundry.org/tomcat-lifecycle-support/tomcat-lifecycle-support-3.2.0_RELEASE.jar (found in cache)
+   -----> Downloading Tomcat Logging Support 3.2.0_RELEASE from https://java-buildpack.cloudfoundry.org/tomcat-logging-support/tomcat-logging-support-3.2.0_RELEASE.jar (found in cache)
+   Exit status 0
+   Uploading droplet, build artifacts cache...
+   Uploading build artifacts cache...
+   Uploading droplet...
+   Uploaded build artifacts cache (129B)
+   Uploaded droplet (78.1M)
+   Uploading complete
+   Cell 2ecdc72b-e2b5-4ac0-b21e-85fea6f01343 stopping instance 7d223db1-c4d8-43c7-8d4c-32132c44fc14
+   Cell 2ecdc72b-e2b5-4ac0-b21e-85fea6f01343 destroying container for instance 7d223db1-c4d8-43c7-8d4c-32132c44fc14
+   Cell 2ecdc72b-e2b5-4ac0-b21e-85fea6f01343 successfully destroyed container for instance 7d223db1-c4d8-43c7-8d4c-32132c44fc14
+
+Waiting for app to start...
+
+name:              spring-music
+requested state:   started
+instances:         1/1
+usage:             3G x 1 instances
+routes:            ch-spring-music.apps.pcf4u.com
+last uploaded:     Tue 03 Jul 13:41:37 EDT 2018
+stack:             cflinuxfs2
+buildpack:         client-certificate-mapper=1.6.0_RELEASE container-security-provider=1.13.0_RELEASE
+                   java-buildpack=v4.12-offline-https://github.com/cloudfoundry/java-buildpack.git#5dca820 java-opts java-security jvmkill-agent=1.12.0_RELEASE
+                   open-jdk-like-jre=1...
+start command:     JAVA_OPTS="-agentpath:$PWD/.java-buildpack/open_jdk_jre/bin/jvmkill-1.12.0_RELEASE=printHeapHistogram=1 -Djava.io.tmpdir=$TMPDIR
+                   -Djava.ext.dirs=$PWD/.java-buildpack/container_security_provider:$PWD/.java-buildpack/open_jdk_jre/lib/ext
+                   -Djava.security.properties=$PWD/.java-buildpack/java_security/java.security $JAVA_OPTS -Daccess.logging.enabled=false -Dhttp.port=$PORT" &&
+                   CALCULATED_MEMORY=$($PWD/.java-buildpack/open_jdk_jre/bin/java-buildpack-memory-calculator-3.13.0_RELEASE -totMemory=$MEMORY_LIMIT -loadedClasses=17453
+                   -poolType=metaspace -stackThreads=250 -vmOptions="$JAVA_OPTS") && echo JVM Memory Configuration: $CALCULATED_MEMORY && JAVA_OPTS="$JAVA_OPTS
+                   $CALCULATED_MEMORY" && MALLOC_ARENA_MAX=2 JAVA_OPTS=$JAVA_OPTS JAVA_HOME=$PWD/.java-buildpack/open_jdk_jre exec $PWD/.java-buildpack/tomcat/bin/catalina.sh
+                   run
+
+     state     since                  cpu    memory        disk           details
+#0   running   2018-07-03T17:43:08Z   0.0%   86.6M of 3G   159.8M of 1G   
+
+======================= Let's cf ssh into the newly pushed Spring-Music App =======================
+
+$ cf ssh spring-music
+
+vcap@544efd5b-48fe-4ba6-5ad6-f2b5:~$ ps -ef | tee 
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 17:42 ?        00:00:00 /tmp/garden-init
+vcap          13       0  0 17:42 ?        00:00:00 /tmp/lifecycle/diego-sshd --allowedKeyExchanges= --address=0.0.0.0:2222 --allowUnauthenticatedClients=false --inheritDaemonEnv=true --allowedCiphers= --allowedMACs= --logLevel=fatal --debugAddr=
+vcap          19       0  6 17:42 ?        00:00:31 /home/vcap/app/.java-buildpack/open_jdk_jre/bin/java -Djava.util.logging.config.file=/home/vcap/app/.java-buildpack/tomcat/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -agentpath:/home/vcap/app/.java-buildpack/open_jdk_jre/bin/jvmkill-1.12.0_RELEASE=printHeapHistogram=1 -Djava.io.tmpdir=/home/vcap/tmp -Djava.ext.dirs=/home/vcap/app/.java-buildpack/container_security_provider:/home/vcap/app/.java-buildpack/open_jdk_jre/lib/ext -Djava.security.properties=/home/vcap/app/.java-buildpack/java_security/java.security -Daccess.logging.enabled=false -Dhttp.port=8080 -Xmx2521201K -Xss1M -XX:ReservedCodeCacheSize=240M -XX:MaxDirectMemorySize=10M -XX:MaxMetaspaceSize=112526K -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath :.java-buildpack/tomcat/bin/tomcat_logging_support-3.2.0_RELEASE.jar:/home/vcap/app/.java-buildpack/tomcat/bin/bootstrap.jar:/home/vcap/app/.java-buildpack/tomcat/bin/tomcat-juli.jar -Dcatalina.base=/home/vcap/app/.java-buildpack/tomcat -Dcatalina.home=/home/vcap/app/.java-buildpack/tomcat -Djava.io.tmpdir=/home/vcap/app/.java-buildpack/tomcat/temp org.apache.catalina.startup.Bootstrap start
+vcap         325      13  0 17:50 pts/0    00:00:00 /bin/bash
+vcap         347     325  0 17:51 pts/0    00:00:00 ps -ef
+vcap         348     325  0 17:51 pts/0    00:00:00 /bin/bash
+vcap@544efd5b-48fe-4ba6-5ad6-f2b5:~$
+
+======================= Notes ======================================================================
+
+1. The output of the ps -ef command is truncated based on the width of the terminal window, so I used ps -ef | tee to make sure all
+of the line is outputed. Scroll right to see all the details.
+
+2. The /home/vcap/app/.java-buildpack/open_jdk_jre/bin/java line comes with many parameters
+
+   -Djava.util.logging.config.file=/home/vcap/app/.java-buildpack/tomcat/conf/logging.properties 
+   -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager 
+   -agentpath:/home/vcap/app/.java-buildpack/open_jdk_jre/bin/jvmkill-1.12.0_RELEASE=printHeapHistogram=1 
+   -Djava.io.tmpdir=/home/vcap/tmp 
+   -Djava.ext.dirs=/home/vcap/app/.java-buildpack/container_security_provider:/home/vcap/app/.java-buildpack/open_jdk_jre/lib/ext 
+   -Djava.security.properties=/home/vcap/app/.java-buildpack/java_security/java.security 
+   -Daccess.logging.enabled=false 
+   -Dhttp.port=8080 
+   -Xmx2521201K 
+   -Xss1M 
+   -XX:ReservedCodeCacheSize=240M 
+   -XX:MaxDirectMemorySize=10M 
+   -XX:MaxMetaspaceSize=112526K 
+   -Djdk.tls.ephemeralDHKeySize=2048 
+   -Djava.protocol.handler.pkgs=org.apache.catalina.webresources 
+   -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 
+   -Dignore.endorsed.dirs= -classpath :.java-buildpack/tomcat/bin/tomcat_logging_support-3.2.0_RELEASE.jar:/home/vcap/app/.java-buildpack/tomcat/bin/bootstrap.jar:/home/vcap/app/.java-buildpack/tomcat/bin/tomcat-juli.jar 
+   -Dcatalina.base=/home/vcap/app/.java-buildpack/tomcat 
+   -Dcatalina.home=/home/vcap/app/.java-buildpack/tomcat 
+   -Djava.io.tmpdir=/home/vcap/app/.java-buildpack/tomcat/temp org.apache.catalina.startup.Bootstrap start
+
+3. One of the parameters shown above is: -XX:MaxDirectMemorySize=10M 
+   Let's change the cf push command with a new value of -XX:MaxDirectMemorySize=20M 
+   
+$ cf set-env spring-music JAVA_OPTS '-XX:MaxDirectMemorySize=20M'
+
+Setting env variable 'JAVA_OPTS' to '-XX:MaxDirectMemorySize=20M' for app spring-music in org demo / space demo as rmeira@pivotal.io...
+OK
+TIP: Use 'cf restage spring-music' to ensure your env variable changes take effect
+
+$ cf restage spring-music
+Restaging app spring-music in org demo / space demo as rmeira@pivotal.io...
+
+Staging app and tracing logs...
+   Downloading binary_buildpack...
+   Downloading java_buildpack_offline...
+   Downloading nodejs_buildpack...
+   Downloading staticfile_buildpack...
+   Downloading php_buildpack...
+   Downloaded staticfile_buildpack
+   Downloading go_buildpack...
+   Downloaded binary_buildpack
+   Downloading python_buildpack...
+   Downloaded nodejs_buildpack
+   Downloading dotnet_core_buildpack...
+   Downloaded java_buildpack_offline
+   Downloading ruby_buildpack...
+   Downloaded php_buildpack
+   Downloaded dotnet_core_buildpack
+   Downloaded go_buildpack
+   Downloaded ruby_buildpack
+   Downloaded python_buildpack
+   Cell 2ecdc72b-e2b5-4ac0-b21e-85fea6f01343 creating container for instance 8a6d3478-9980-4206-b047-94b44137620c
+   Cell 2ecdc72b-e2b5-4ac0-b21e-85fea6f01343 successfully created container for instance 8a6d3478-9980-4206-b047-94b44137620c
+   Downloading build artifacts cache...
+   Downloading app package...
+   Downloaded build artifacts cache (129B)
+   Downloaded app package (24.5M)
+   -----> Java Buildpack v4.12 (offline) | https://github.com/cloudfoundry/java-buildpack.git#5dca820
+   -----> Downloading Jvmkill Agent 1.12.0_RELEASE from https://java-buildpack.cloudfoundry.org/jvmkill/trusty/x86_64/jvmkill-1.12.0_RELEASE.so (found in cache)
+   -----> Downloading Open Jdk JRE 1.8.0_172 from https://java-buildpack.cloudfoundry.org/openjdk/trusty/x86_64/openjdk-1.8.0_172.tar.gz (found in cache)
+          Expanding Open Jdk JRE to .java-buildpack/open_jdk_jre (1.8s)
+          JVM DNS caching disabled in lieu of BOSH DNS caching
+   -----> Downloading Open JDK Like Memory Calculator 3.13.0_RELEASE from https://java-buildpack.cloudfoundry.org/memory-calculator/trusty/x86_64/memory-calculator-3.13.0_RELEASE.tar.gz (found in cache)
+          Loaded Classes: 15591, Threads: 250
+   -----> Downloading Client Certificate Mapper 1.6.0_RELEASE from https://java-buildpack.cloudfoundry.org/client-certificate-mapper/client-certificate-mapper-1.6.0_RELEASE.jar (found in cache)
+   -----> Downloading Container Security Provider 1.13.0_RELEASE from https://java-buildpack.cloudfoundry.org/container-security-provider/container-security-provider-1.13.0_RELEASE.jar (found in cache)
+   -----> Downloading Spring Auto Reconfiguration 2.4.0_RELEASE from https://java-buildpack.cloudfoundry.org/auto-reconfiguration/auto-reconfiguration-2.4.0_RELEASE.jar (found in cache)
+   -----> Downloading Tomcat Instance 8.5.31 from https://java-buildpack.cloudfoundry.org/tomcat/tomcat-8.5.31.tar.gz (found in cache)
+          Expanding Tomcat Instance to .java-buildpack/tomcat (0.3s)
+   -----> Downloading Tomcat Access Logging Support 3.2.0_RELEASE from https://java-buildpack.cloudfoundry.org/tomcat-access-logging-support/tomcat-access-logging-support-3.2.0_RELEASE.jar (found in cache)
+   -----> Downloading Tomcat Lifecycle Support 3.2.0_RELEASE from https://java-buildpack.cloudfoundry.org/tomcat-lifecycle-support/tomcat-lifecycle-support-3.2.0_RELEASE.jar (found in cache)
+   -----> Downloading Tomcat Logging Support 3.2.0_RELEASE from https://java-buildpack.cloudfoundry.org/tomcat-logging-support/tomcat-logging-support-3.2.0_RELEASE.jar (found in cache)
+   Exit status 0
+   Uploading droplet, build artifacts cache...
+   Uploading build artifacts cache...
+   Uploading droplet...
+   Uploaded build artifacts cache (129B)
+
+Waiting for app to start...
+
+name:              spring-music
+requested state:   started
+instances:         1/1
+usage:             3G x 1 instances
+routes:            ch-spring-music.apps.pcf4u.com
+last uploaded:     Tue 03 Jul 13:41:37 EDT 2018
+stack:             cflinuxfs2
+buildpack:         client-certificate-mapper=1.6.0_RELEASE container-security-provider=1.13.0_RELEASE
+                   java-buildpack=v4.12-offline-https://github.com/cloudfoundry/java-buildpack.git#5dca820 java-opts java-security jvmkill-agent=1.12.0_RELEASE
+                   open-jdk-like-jre=1...
+start command:     JAVA_OPTS="-agentpath:$PWD/.java-buildpack/open_jdk_jre/bin/jvmkill-1.12.0_RELEASE=printHeapHistogram=1 -Djava.io.tmpdir=$TMPDIR
+                   -Djava.ext.dirs=$PWD/.java-buildpack/container_security_provider:$PWD/.java-buildpack/open_jdk_jre/lib/ext
+                   -Djava.security.properties=$PWD/.java-buildpack/java_security/java.security $JAVA_OPTS -Daccess.logging.enabled=false -Dhttp.port=$PORT" &&
+                   CALCULATED_MEMORY=$($PWD/.java-buildpack/open_jdk_jre/bin/java-buildpack-memory-calculator-3.13.0_RELEASE -totMemory=$MEMORY_LIMIT -loadedClasses=17453
+                   -poolType=metaspace -stackThreads=250 -vmOptions="$JAVA_OPTS") && echo JVM Memory Configuration: $CALCULATED_MEMORY && JAVA_OPTS="$JAVA_OPTS
+                   $CALCULATED_MEMORY" && MALLOC_ARENA_MAX=2 JAVA_OPTS=$JAVA_OPTS JAVA_HOME=$PWD/.java-buildpack/open_jdk_jre exec $PWD/.java-buildpack/tomcat/bin/catalina.sh
+                   run
+
+     state     since                  cpu      memory         disk           details
+#0   running   2018-07-03T18:01:26Z   188.4%   552.3M of 3G   159.8M of 1G 
+   
+$ cf ssh spring-music
+
+vcap@b7cf6f8b-ab39-40d7-7890-3bd9:~$ ps -ef | tee
+
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 18:01 ?        00:00:00 /tmp/garden-init
+vcap          14       0 23 18:01 ?        00:00:28 /home/vcap/app/.java-buildpack/open_jdk_jre/bin/java -Djava.util.logging.config.file=/home/vcap/app/.java-buildpack/tomcat/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -agentpath:/home/vcap/app/.java-buildpack/open_jdk_jre/bin/jvmkill-1.12.0_RELEASE=printHeapHistogram=1 -Djava.io.tmpdir=/home/vcap/tmp -Djava.ext.dirs=/home/vcap/app/.java-buildpack/container_security_provider:/home/vcap/app/.java-buildpack/open_jdk_jre/lib/ext -Djava.security.properties=/home/vcap/app/.java-buildpack/java_security/java.security -XX:MaxDirectMemorySize=20M -Daccess.logging.enabled=false -Dhttp.port=8080 -Xmx2510961K -Xss1M -XX:ReservedCodeCacheSize=240M -XX:MaxMetaspaceSize=112526K -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath :.java-buildpack/tomcat/bin/tomcat_logging_support-3.2.0_RELEASE.jar:/home/vcap/app/.java-buildpack/tomcat/bin/bootstrap.jar:/home/vcap/app/.java-buildpack/tomcat/bin/tomcat-juli.jar -Dcatalina.base=/home/vcap/app/.java-buildpack/tomcat -Dcatalina.home=/home/vcap/app/.java-buildpack/tomcat -Djava.io.tmpdir=/home/vcap/app/.java-buildpack/tomcat/temp org.apache.catalina.startup.Bootstrap start
+vcap          19       0  0 18:01 ?        00:00:00 /tmp/lifecycle/diego-sshd --allowedKeyExchanges= --address=0.0.0.0:2222 --allowUnauthenticatedClients=false --inheritDaemonEnv=true --allowedCiphers= --allowedMACs= --logLevel=fatal --debugAddr=
+vcap         186      19  0 18:03 pts/0    00:00:00 /bin/bash
+vcap         196     186  0 18:03 pts/0    00:00:00 ps -ef
+vcap         197     186  0 18:03 pts/0    00:00:00 [bash]
+
+4. Comparison of -XX:MaxDirectMemorySize=10M (auto-calculated) and cf set-env spring-music JAVA_OPTS '-XX:MaxDirectMemorySize=20M'
+
+/home/vcap/app/.java-buildpack/open_jdk_jre/bin/java 
+-Djava.util.logging.config.file=/home/vcap/app/.java-buildpack/tomcat/conf/logging.properties 
+-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager 
+-agentpath:/home/vcap/app/.java-buildpack/open_jdk_jre/bin/jvmkill-1.12.0_RELEASE=printHeapHistogram=1 
+-Djava.io.tmpdir=/home/vcap/tmp 
+-Djava.ext.dirs=/home/vcap/app/.java-buildpack/container_security_provider:/home/vcap/app/.java-buildpack/open_jdk_jre/lib/ext 
+-Djava.security.properties=/home/vcap/app/.java-buildpack/java_security/java.security 
+-XX:MaxDirectMemorySize=20M       <--- As requested, the Direct Memory Size is set to 20Mbytes
+-Daccess.logging.enabled=false 
+-Dhttp.port=8080 
+-Xmx2510961K                      <--- Maximum Heap Space has been decreased by 10Mbytes
+-Xss1M 
+-XX:ReservedCodeCacheSize=240M 
+-XX:MaxMetaspaceSize=112526K 
+-Djdk.tls.ephemeralDHKeySize=2048 
+-Djava.protocol.handler.pkgs=org.apache.catalina.webresources 
+-Dorg.apache.catalina.security.SecurityListener.UMASK=0027 
+-Dignore.endorsed.dirs= -classpath :.java-buildpack/tomcat/bin/tomcat_logging_support-3.2.0_RELEASE.jar:/home/vcap/app/.java-buildpack/tomcat/bin/bootstrap.jar:/home/vcap/app/.java-buildpack/tomcat/bin/tomcat-juli.jar 
+-Dcatalina.base=/home/vcap/app/.java-buildpack/tomcat 
+-Dcatalina.home=/home/vcap/app/.java-buildpack/tomcat 
+-Djava.io.tmpdir=/home/vcap/app/.java-buildpack/tomcat/temp org.apache.catalina.startup.Bootstrap start
+
